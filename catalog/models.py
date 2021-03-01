@@ -36,6 +36,13 @@ class Book(models.Model):
         """
         return reverse('book_detail', args=[str(self.id)])
 
+    def display_genre(self):
+        """
+        Создаёт строку для жанра книги. Требуется для отображения жанра в Админке.
+        """
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
+    display_genre.short_description = 'Genre'
+
 
 class BookInstance(models.Model):
     """
@@ -80,7 +87,7 @@ class Author(models.Model):
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name})"
+        return f"{self.last_name} {self.first_name}"
 
 
 class Language(models.Model):
